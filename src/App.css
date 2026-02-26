@@ -1,0 +1,384 @@
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
+}
+
+/* Glassmorphism utility */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 12px;
+}
+
+/* Header */
+header {
+  padding: 3.5rem 0 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.header-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.badge {
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--primary-color);
+  padding: 0.4rem 1.2rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  display: inline-block;
+}
+
+header h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 0.75rem;
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+
+header h1 span {
+  background: linear-gradient(135deg, var(--primary-color), #6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: #475569;
+  max-width: 600px;
+}
+
+/* Main Content */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-bottom: 3rem;
+}
+
+/* Info Section */
+.info-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.info-card {
+  padding: 1.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-top: 4px solid var(--primary-color);
+}
+
+.info-card h3 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.info-card .highlight {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.small-text {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-top: 0.25rem;
+}
+
+/* Progress Bar Section */
+.progress-section {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progress-header h3 {
+  font-size: 1rem;
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.progress-percentage {
+  font-weight: 700;
+  color: var(--primary-color);
+  background: rgba(37, 99, 235, 0.1);
+  padding: 0.2rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 12px;
+  background-color: #e2e8f0;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-color), #10b981);
+  border-radius: 10px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress-text {
+  font-size: 0.85rem;
+  color: #64748b;
+  text-align: right;
+  font-weight: 500;
+}
+
+/* Status Bar & Legend */
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.status-info {
+  font-size: 0.85rem;
+  color: #64748b;
+  font-weight: 500;
+  background: rgba(255,255,255,0.5);
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+}
+
+.pulsing-text {
+  animation: pulse 1.5s infinite;
+  color: var(--primary-color);
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.inline-legend {
+  display: flex;
+  gap: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #334155;
+  font-weight: 600;
+}
+
+.box {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1px solid;
+}
+
+.box.available { background: var(--state-available-bg); border-color: var(--state-available-border); }
+.box.reserved { background: var(--state-reserved-bg); border-color: var(--state-reserved-border); }
+.box.paid { background: var(--state-paid-bg); border-color: var(--state-paid-border); }
+
+/* Grid Section */
+.grid-section {
+  padding: 2rem;
+}
+
+/* Agrupación Visual: Obligar a mostrar 10 por fila en desktop */
+.numbers-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 12px;
+}
+
+.number-cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.2s;
+  user-select: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+/* READ ONLY: Elimina el pointer porque ya no se puede hacer click */
+.number-cell.read-only {
+  cursor: default;
+}
+
+.number-cell.available {
+  background-color: var(--state-available-bg);
+  color: var(--state-available-color);
+  border: 1px solid var(--state-available-border);
+}
+
+/* Ligeros hovers sólo para estética, sin insinuar acción */
+.number-cell.available:hover {
+  border-color: #94a3b8;
+  background-color: #f1f5f9;
+}
+
+.number-cell.reserved {
+  background-color: var(--state-reserved-bg);
+  color: var(--state-reserved-color);
+  border: 1px solid var(--state-reserved-border);
+  box-shadow: inset 0 -2px 0 rgba(0,0,0,0.15);
+}
+
+.number-cell.paid {
+  background-color: var(--state-paid-bg);
+  color: var(--state-paid-color);
+  border: 1px solid var(--state-paid-border);
+  opacity: 0.95;
+  box-shadow: inset 0 -2px 0 rgba(0,0,0,0.15);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 2rem 0;
+  margin-top: auto;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+/* ==================================================
+   RESPONSIVE DESIGN (Tablets y Móviles)
+   ================================================== */
+
+@media (max-width: 1024px) {
+  .numbers-grid {
+    grid-template-columns: repeat(10, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    padding: 2rem 0 1rem;
+  }
+  
+  .badge {
+    font-size: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  header h1 {
+    font-size: 2.25rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
+  
+  .container {
+    padding: 0 15px;
+  }
+  
+  .info-section {
+    grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+    gap: 1rem;
+  }
+  
+  .status-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .status-info {
+    text-align: center;
+  }
+  
+  .inline-legend {
+    justify-content: center;
+    border-radius: 12px;
+  }
+
+  .grid-section {
+    padding: 1.25rem;
+  }
+  
+  /* Ajuste de Agrupación en Móviles: 5 columnas */
+  .numbers-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+  }
+  
+  .number-cell {
+    font-size: 1rem;
+    border-radius: 6px;
+  }
+  
+  main {
+    padding-bottom: 2rem; 
+  }
+}
+
+@media (max-width: 480px) {
+  .numbers-grid {
+    gap: 6px;
+  }
+
+  .number-cell {
+    font-size: 0.9rem;
+  }
+}
