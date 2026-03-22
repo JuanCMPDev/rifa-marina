@@ -1,0 +1,36 @@
+name: Check Lottery Winner
+
+on:
+  # Ejecutar manualmente desde GitHub
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Fecha del sorteo (YYYY-MM-DD), vacío = hoy'
+        required: false
+
+  # Cada 5 minutos los sábados de 7pm a 11pm (hora Colombia UTC-5 = 00:00-04:00 UTC domingo)
+  schedule:
+    - cron: '*/5 0-4 * * 0'  # Domingo UTC = Sábado noche Colombia
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Write service account credentials
+        run: echo '${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}' > service-account.json
+
+      - name: Create .env
+        run: |
+          echo 'GOOGLE_SPREADSHEET_ID=${{ secrets.GOOGLE_SPREADSHEET_ID }}' > .env
+
+      - name: Check lottery results
+        run: node scripts/check-winner.js ${{ github.event.inputs.date || '' }}

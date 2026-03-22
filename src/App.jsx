@@ -4,6 +4,7 @@ import InfoSection from './components/InfoSection';
 import ProgressBar from './components/ProgressBar';
 import Grid from './components/Grid';
 import Footer from './components/Footer';
+import WinnerBanner from './components/WinnerBanner';
 
 const TOTAL_NUMBERS = 100;
 
@@ -18,6 +19,8 @@ function App() {
     return initialState;
   });
 
+  const [winnerNumber, setWinnerNumber] = useState(null);
+  const [bannerVisible, setBannerVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [lastUpdated, setLastUpdated] = useState(null);
 
@@ -49,24 +52,48 @@ function App() {
         // Soporta separadores de coma (,) o punto y coma (;) dependiendo de la región de Google Sheets
         const lines = csvText.split(/\r?\n/);
         const newState = {};
-        
+        let detectedWinner = null;
+
         lines.forEach((line) => {
           const parts = line.split(/[,;]/);
           if (parts.length >= 2) {
             const numRaw = parts[0].trim();
             const stateRaw = parts[1].trim().toLowerCase();
-            
+
             // Validar que la primera columna sea realmente un número (así ignoramos la fila de encabezados automáticamente)
             if (/^\d+$/.test(numRaw)) {
               const num = numRaw.padStart(2, '0');
-              
+
               // Mapeo flexible por si escriben en mayúsculas o con espacios
               if (['available', 'reserved', 'paid'].includes(stateRaw)) {
                 newState[num] = stateRaw;
               }
             }
+
+            // Columna D (índice 3): número ganador (00-99)
+            if (parts.length >= 4) {
+              const colD = parts[3].trim();
+              if (/^\d{1,2}$/.test(colD)) {
+                const val = parseInt(colD, 10);
+                if (val >= 0 && val <= 99) {
+                  detectedWinner = colD.padStart(2, '0');
+                }
+              }
+            }
           }
         });
+
+        // Mostrar banner si se detecta un ganador nuevo
+        if (detectedWinner !== null) {
+          setWinnerNumber(prev => {
+            if (prev !== detectedWinner) {
+              setBannerVisible(true);
+            }
+            return detectedWinner;
+          });
+        } else {
+          setWinnerNumber(null);
+        }
 
         // Combinar datos del Excel con el estado por defecto (por si faltan números en la lista)
         const finalState = {};
@@ -85,10 +112,10 @@ function App() {
     };
 
     fetchSheetData();
-    
-    // Opcional: Descomentar esto para que la página se actualice sola cada 5 minutos
-    // const interval = setInterval(fetchSheetData, 5 * 60 * 1000);
-    // return () => clearInterval(interval);
+
+    // Auto-refresh cada 30 segundos para detectar el número ganador en tiempo real
+    const interval = setInterval(fetchSheetData, 30 * 1000);
+    return () => clearInterval(interval);
   }, []);
 
   const counts = Object.values(numbersState).reduce(
@@ -106,15 +133,22 @@ function App() {
         <div className="aurora-blob blob-2"></div>
         <div className="aurora-blob blob-3"></div>
       </div>
-      
+
+      {bannerVisible && winnerNumber !== null && (
+        <WinnerBanner
+          winnerNumber={winnerNumber}
+          onClose={() => setBannerVisible(false)}
+        />
+      )}
+
       <div className="app-container">
         <div className="container">
           <Header />
         </div>
         <main className="container">
-          <InfoSection />
+          <InfoSection winnerNumber={winnerNumber} />
           <ProgressBar counts={counts} total={TOTAL_NUMBERS} />
-          
+
           <div className="status-bar" style={{ justifyContent: 'center' }}>
              <div className="legend glass-panel inline-legend">
                 <span className="legend-item"><div className="box available"></div> Disponible</span>
@@ -123,7 +157,7 @@ function App() {
              </div>
           </div>
 
-          <Grid numbersState={numbersState} />
+          <Grid numbersState={numbersState} winnerNumber={winnerNumber} />
         </main>
         <Footer />
       </div>
