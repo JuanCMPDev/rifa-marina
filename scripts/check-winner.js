@@ -5,8 +5,9 @@
  * ganador (últimas 2 cifras) en la columna D del Google Sheet de la rifa.
  *
  * Uso:
- *   node scripts/check-winner.js                  # usa la fecha de hoy
- *   node scripts/check-winner.js 2026-03-21       # fecha específica
+ *   node scripts/check-winner.js                  # usa la fecha de hoy (hora Colombia)
+ *   node scripts/check-winner.js 2026-08-15       # fecha específica
+ *   node scripts/check-winner.js 2026-08-01 --force  # ignora la guardia de fecha (pruebas)
  *
  * Requiere:
  *   - service-account.json en la raíz del proyecto
@@ -28,9 +29,20 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const LOTTERY_API = 'https://api-resultadosloterias.com/api/results';
 const LOTTERY_SLUG = 'boyaca';
 
+// Fecha del sorteo de la rifa. Antes de este día el script no escribe
+// en la sheet (evita publicar un "ganador" de un sábado equivocado).
+const RAFFLE_DATE = '2026-08-15';
+
 const SPREADSHEET_ID = process.env.GOOGLE_SPREADSHEET_ID;
 const WINNER_CELL = process.env.WINNER_CELL || 'D2';
 const SERVICE_ACCOUNT_PATH = resolve(__dirname, '..', 'service-account.json');
+
+// La Lotería de Boyacá juega en horario de Colombia (UTC-5). El cron de
+// GitHub corre en UTC, donde ya es el día siguiente durante la noche del
+// sorteo, así que la fecha por defecto se calcula en hora Colombia.
+function todayInColombia() {
+  return new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString().split('T')[0];
+}
 
 // ─── 1. Consultar la API de la lotería ──────────────────────────────
 async function fetchLotteryResult(date) {
@@ -120,7 +132,16 @@ async function updateSheet(winnerNumber) {
 
 // ─── 3. Main ────────────────────────────────────────────────────────
 async function main() {
-  const date = process.argv[2] || new Date().toISOString().split('T')[0];
+  const args = process.argv.slice(2);
+  const force = args.includes('--force');
+  const date = args.find((a) => !a.startsWith('--')) || todayInColombia();
+
+  if (date < RAFFLE_DATE && !force) {
+    console.log(`La rifa juega el ${RAFFLE_DATE} y la fecha consultada es ${date}.`);
+    console.log('No se actualizará la sheet para no publicar un ganador prematuro.');
+    console.log('(Usa --force si necesitas probar el flujo completo.)');
+    process.exit(0);
+  }
 
   const winnerNumber = await fetchLotteryResult(date);
 

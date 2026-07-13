@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
 
 const CONFETTI_COLORS = [
-  '#f59e0b', '#10b981', '#2563eb',
-  '#dc2626', '#8b5cf6', '#ec4899',
-  '#06b6d4', '#fbbf24',
+  '#5eead4', '#38d3f5', '#f6c453',
+  '#ff7a59', '#94e9ff', '#fff3cf',
+  '#60a5fa', '#f4fbff',
 ];
 
 function generateConfetti(count) {
@@ -96,7 +96,7 @@ export default function WinnerBanner({ winnerNumber, onClose }) {
             <span className="winner-number-text">{winnerNumber}</span>
           </div>
 
-          <p className="winner-subtitle">Gran Sorteo Solidario · Rifa Marina</p>
+          <p className="winner-subtitle">Rifa en apoyo a Marina · 15 de agosto de 2026</p>
           <p className="winner-thanks">¡Gracias por participar!</p>
 
           <button

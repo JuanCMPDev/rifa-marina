@@ -1,3 +1,9 @@
+const STATE_LABELS = {
+  available: 'disponible',
+  reserved: 'reservada',
+  paid: 'pagada',
+};
+
 export default function Grid({ numbersState, winnerNumber }) {
   // Garantizar el orden del 00 al 99 siempre, independientemente de cómo venga el objeto de estado
   const numbers = Array.from({ length: 100 }, (_, i) => {
@@ -6,14 +12,18 @@ export default function Grid({ numbersState, winnerNumber }) {
   });
 
   return (
-    <section className="grid-section glass-panel">
-      <div className="numbers-grid group-by-10">
-        {numbers.map(([number, state]) => {
+    <section className="grid-section glass-panel reveal r10" aria-label="Tablero de números de la rifa">
+      <div className="numbers-grid">
+        {numbers.map(([number, state], i) => {
           const isWinner = winnerNumber !== null && number === winnerNumber;
+          const label = isWinner ? 'número ganador' : STATE_LABELS[state];
           return (
             <div
               key={number}
-              className={`number-cell ${state} read-only${isWinner ? ' winner' : ''}`}
+              className={`number-cell ${state}${isWinner ? ' winner' : ''}`}
+              style={{ '--i': i }}
+              title={`Ficha ${number} · ${label}`}
+              aria-label={`Ficha ${number}: ${label}`}
             >
               {number}
             </div>

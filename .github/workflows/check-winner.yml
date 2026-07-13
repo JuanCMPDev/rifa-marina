@@ -8,9 +8,12 @@ on:
         description: 'Fecha del sorteo (YYYY-MM-DD), vacío = hoy'
         required: false
 
-  # Cada 5 minutos los sábados de 7pm a 11pm (hora Colombia UTC-5 = 00:00-04:00 UTC domingo)
+  # La rifa juega el sábado 15 de agosto de 2026 con la Lotería de Boyacá.
+  # Esa noche en Colombia (7pm-11:55pm, UTC-5) corresponde al 16 de agosto
+  # de 00:00 a 04:55 UTC. El cron solo corre esa madrugada UTC, cada 5 min.
+  # (El script además tiene una guardia: no escribe antes del 2026-08-15.)
   schedule:
-    - cron: '*/5 0-4 * * 0'  # Domingo UTC = Sábado noche Colombia
+    - cron: '*/5 0-4 16 8 *'
 
 jobs:
   check:

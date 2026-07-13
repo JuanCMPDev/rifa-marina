@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
+import OceanBackground from './components/OceanBackground';
 import Header from './components/Header';
+import Countdown from './components/Countdown';
 import InfoSection from './components/InfoSection';
 import ProgressBar from './components/ProgressBar';
 import Grid from './components/Grid';
@@ -128,11 +130,7 @@ function App() {
 
   return (
     <>
-      <div className="aurora-bg">
-        <div className="aurora-blob blob-1"></div>
-        <div className="aurora-blob blob-2"></div>
-        <div className="aurora-blob blob-3"></div>
-      </div>
+      <OceanBackground />
 
       {bannerVisible && winnerNumber !== null && (
         <WinnerBanner
@@ -146,20 +144,25 @@ function App() {
           <Header />
         </div>
         <main className="container">
+          {winnerNumber === null && <Countdown />}
           <InfoSection winnerNumber={winnerNumber} />
           <ProgressBar counts={counts} total={TOTAL_NUMBERS} />
 
-          <div className="status-bar" style={{ justifyContent: 'center' }}>
-             <div className="legend glass-panel inline-legend">
-                <span className="legend-item"><div className="box available"></div> Disponible</span>
-                <span className="legend-item"><div className="box reserved"></div> Reservada</span>
-                <span className="legend-item"><div className="box paid"></div> Pagada</span>
-             </div>
+          <div className="legend-row reveal r9">
+            <span className="legend-chip">
+              <span className="dot dot-available" aria-hidden="true" /> Disponible
+            </span>
+            <span className="legend-chip">
+              <span className="dot dot-reserved" aria-hidden="true" /> Reservada
+            </span>
+            <span className="legend-chip">
+              <span className="dot dot-paid" aria-hidden="true" /> Pagada
+            </span>
           </div>
 
           <Grid numbersState={numbersState} winnerNumber={winnerNumber} />
         </main>
-        <Footer />
+        <Footer lastUpdated={lastUpdated} isLoading={isLoading} />
       </div>
     </>
   );

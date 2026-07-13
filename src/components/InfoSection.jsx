@@ -1,30 +1,35 @@
 export default function InfoSection({ winnerNumber }) {
   return (
     <section className="info-section">
-      <div className="info-card glass-panel">
-        <h3>Premio Mayor</h3>
-        <p className="highlight">$500.000</p>
-      </div>
-      <div className="info-card glass-panel">
-        <h3>Valor del Cupo</h3>
-        <p className="highlight">$10.000</p>
-      </div>
-      <div className="info-card glass-panel">
+      <article className="info-card glass-panel card-prize reveal r6">
+        <span className="info-label">Premio mayor</span>
+        <span className="info-value value-gold">$500.000</span>
+        <span className="info-hint">en efectivo, directo al ganador</span>
+      </article>
+
+      <article className="info-card glass-panel card-ticket reveal r7">
+        <span className="info-label">Valor del cupo</span>
+        <span className="info-value">$10.000</span>
+        <span className="info-hint">una ficha, una oportunidad</span>
+      </article>
+
+      <article className="info-card glass-panel card-date reveal r8">
         {winnerNumber !== null ? (
           <>
-            <h3>Sorteo Realizado</h3>
-            <p className="small-text" style={{ marginBottom: '0.25rem' }}>Número ganador</p>
-            <p className="highlight winner-result-number">{winnerNumber}</p>
-            <p className="small-text">Jugó el 21 de Marzo de 2026 con la Lotería de Boyacá</p>
+            <span className="info-label">Sorteo realizado</span>
+            <span className="info-value winner-result-number">{winnerNumber}</span>
+            <span className="info-hint">
+              Jugó el 15 de agosto de 2026 · Lotería de Boyacá
+            </span>
           </>
         ) : (
           <>
-            <h3>Fecha del Sorteo</h3>
-            <p>21 de Marzo de 2026</p>
-            <p className="small-text">Juega con la Lotería de Boyacá</p>
+            <span className="info-label">Fecha del sorteo</span>
+            <span className="info-value">15 de agosto</span>
+            <span className="info-hint">2026 · Lotería de Boyacá</span>
           </>
         )}
-      </div>
+      </article>
     </section>
   );
 }

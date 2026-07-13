@@ -1,3 +1,7 @@
+/* ==================================================
+   RIFA MARINA — Componentes
+   ================================================== */
+
 .app-container {
   min-height: 100vh;
   display: flex;
@@ -13,399 +17,647 @@
   width: 100%;
 }
 
-/* Glassmorphism utility */
+/* Vidrio abisal */
 .glass-panel {
   background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
-  border-radius: 12px;
+  box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-lg);
 }
 
-/* Header */
-header {
-  padding: 3.5rem 0 2rem;
-  margin-bottom: 1.5rem;
-}
-
-.header-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  text-align: center;
-}
-
-.header-text {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.badge {
-  background: rgba(37, 99, 235, 0.1);
-  color: var(--primary-color);
-  padding: 0.4rem 1.2rem;
-  border-radius: 50px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 1.5rem;
-  border: 1px solid rgba(37, 99, 235, 0.2);
-  display: inline-block;
-}
-
-header h1 {
-  font-size: 3.5rem;
-  font-weight: 800;
-  color: #0f172a;
-  margin-bottom: 0.75rem;
-  letter-spacing: -1px;
-  line-height: 1.1;
-}
-
-header h1 span {
-  background: linear-gradient(135deg, var(--primary-color), #6366f1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-block;
-}
-
-.subtitle {
-  font-size: 1.25rem;
-  font-weight: 400;
-  color: #475569;
-  max-width: 600px;
-}
-
-/* Main Content */
 main {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.75rem;
   padding-bottom: 3rem;
 }
 
-/* Info Section */
+/* ==================================================
+   HERO
+   ================================================== */
+
+.hero {
+  padding: 4.5rem 0 2.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem 1.3rem;
+  border-radius: 50px;
+  border: 1px solid rgba(94, 234, 212, 0.28);
+  background: rgba(94, 234, 212, 0.07);
+  color: var(--aqua);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  box-shadow: 0 0 24px -6px rgba(94, 234, 212, 0.35);
+}
+
+.badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--aqua);
+  box-shadow: 0 0 10px var(--aqua);
+  animation: badge-glow 2.4s ease-in-out infinite;
+}
+
+@keyframes badge-glow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.55; transform: scale(0.8); }
+}
+
+.hero-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+
+.hero-kicker {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 2.4vw, 1.25rem);
+  font-weight: 600;
+  letter-spacing: 7px;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 0.5rem;
+}
+
+.hero-name {
+  position: relative;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 560;
+  font-size: clamp(4.2rem, 15vw, 8.5rem);
+  letter-spacing: -0.01em;
+  background: linear-gradient(115deg, var(--pearl) 15%, var(--aqua) 48%, var(--cyan) 72%, var(--pearl) 100%);
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding: 0.05em 0.35em 0.12em;
+  filter: drop-shadow(0 8px 40px rgba(56, 211, 245, 0.28));
+  /* Incluye rise-up porque esta regla pisa la animación de .reveal */
+  animation:
+    rise-up 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.22s forwards,
+    name-shine 7s ease-in-out infinite;
+}
+
+@keyframes name-shine {
+  0%, 100% { background-position: 0% center; }
+  50%      { background-position: 100% center; }
+}
+
+.hero-spark {
+  position: absolute;
+  font-style: normal;
+  font-family: var(--font-body);
+  color: var(--gold);
+  text-shadow: 0 0 16px rgba(246, 196, 83, 0.8);
+  animation: spark-twinkle 3.2s ease-in-out infinite;
+}
+
+.spark-1 {
+  top: 0.08em;
+  right: -0.05em;
+  font-size: 0.22em;
+}
+
+.spark-2 {
+  bottom: 0.22em;
+  left: -0.02em;
+  font-size: 0.14em;
+  animation-delay: -1.6s;
+}
+
+@keyframes spark-twinkle {
+  0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+  50%      { opacity: 0.35; transform: scale(0.72) rotate(24deg); }
+}
+
+.hero-subtitle {
+  margin-top: 1.4rem;
+  font-size: clamp(1rem, 2.4vw, 1.2rem);
+  color: var(--ink-soft);
+  max-width: 560px;
+  font-weight: 500;
+}
+
+/* ==================================================
+   CUENTA REGRESIVA
+   ================================================== */
+
+.countdown {
+  padding: 2rem 1.5rem 1.75rem;
+  text-align: center;
+}
+
+.countdown-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: var(--aqua);
+  margin-bottom: 1.25rem;
+}
+
+.countdown-cells {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: clamp(0.4rem, 1.8vw, 1rem);
+}
+
+.count-cell {
+  min-width: clamp(64px, 17vw, 104px);
+  padding: 1rem 0.5rem 0.8rem;
+  background: rgba(3, 15, 30, 0.65);
+  border: 1px solid rgba(94, 234, 212, 0.18);
+  border-radius: var(--radius-md);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 28px -10px rgba(56, 211, 245, 0.45);
+}
+
+.count-value {
+  display: block;
+  font-family: var(--font-body);
+  font-size: clamp(1.9rem, 7vw, 2.9rem);
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--pearl);
+  text-shadow: 0 0 20px rgba(94, 234, 212, 0.5);
+}
+
+.count-unit {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.count-sep {
+  align-self: center;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 300;
+  color: rgba(94, 234, 212, 0.5);
+  text-shadow: 0 0 12px rgba(94, 234, 212, 0.6);
+  padding-bottom: 1.2rem;
+}
+
+.countdown-footnote {
+  margin-top: 1.25rem;
+  font-size: 0.85rem;
+  color: var(--ink-dim);
+  font-weight: 500;
+}
+
+.countdown-today {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.5rem, 4.5vw, 2.2rem);
+  color: var(--pearl);
+  text-shadow: 0 0 30px rgba(246, 196, 83, 0.5);
+  padding: 0.5rem 0 0.75rem;
+}
+
+/* ==================================================
+   TARJETAS DE INFO
+   ================================================== */
+
 .info-section {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
 }
 
 .info-card {
-  padding: 1.5rem;
-  text-align: center;
   position: relative;
-  overflow: hidden;
-  border-top: 4px solid var(--primary-color);
-}
-
-.info-card h3 {
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 0.5rem;
-  color: #64748b;
-  font-weight: 600;
-}
-
-.info-card .highlight {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #0f172a;
-}
-
-.small-text {
-  font-size: 0.85rem;
-  color: #64748b;
-  margin-top: 0.25rem;
-}
-
-/* Progress Bar Section */
-.progress-section {
-  padding: 1.5rem;
+  padding: 1.75rem 1.5rem 1.5rem;
+  text-align: center;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s;
+}
+
+.info-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--card-accent, var(--aqua));
+  box-shadow: 0 0 18px 1px var(--card-accent, var(--aqua));
+  opacity: 0.85;
+}
+
+.info-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 60px -24px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.card-prize  { --card-accent: var(--gold); }
+.card-ticket { --card-accent: var(--aqua); }
+.card-date   { --card-accent: var(--coral); }
+
+.info-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.info-value {
+  font-family: var(--font-display);
+  font-weight: 620;
+  font-size: clamp(1.9rem, 4.5vw, 2.5rem);
+  line-height: 1.15;
+  color: var(--pearl);
+}
+
+.value-gold {
+  background: linear-gradient(160deg, #fff3cf 10%, var(--gold) 55%, #d99e2b 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 18px rgba(246, 196, 83, 0.3));
+}
+
+.info-hint {
+  font-size: 0.85rem;
+  color: var(--ink-dim);
+  font-weight: 500;
+}
+
+/* Número ganador dentro de la tarjeta */
+.winner-result-number {
+  background: linear-gradient(160deg, var(--pearl) 5%, var(--gold) 60%, #d99e2b 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: clamp(2.6rem, 6vw, 3.4rem);
+  filter: drop-shadow(0 0 22px rgba(246, 196, 83, 0.45));
+}
+
+/* ==================================================
+   LA MAREA (PROGRESO)
+   ================================================== */
+
+.tide-section {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tide-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.tide-title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 540;
+  font-size: 1.35rem;
+  color: var(--pearl);
+}
+
+.tide-chip {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: var(--aqua);
+  background: rgba(94, 234, 212, 0.1);
+  border: 1px solid rgba(94, 234, 212, 0.25);
+  padding: 0.25rem 0.9rem;
+  border-radius: 50px;
+  font-variant-numeric: tabular-nums;
+}
+
+.tide-track {
+  width: 100%;
+  height: 16px;
+  border-radius: 50px;
+  background: rgba(2, 10, 20, 0.7);
+  border: 1px solid rgba(94, 234, 212, 0.1);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.tide-fill {
+  position: relative;
+  height: 100%;
+  min-width: 0;
+  border-radius: 50px;
+  background: linear-gradient(90deg, #0e7490, var(--cyan) 55%, var(--aqua));
+  background-size: 200% auto;
+  transition: width 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: tide-flow 4.5s linear infinite;
+  box-shadow: 0 0 18px rgba(56, 211, 245, 0.45);
+}
+
+@keyframes tide-flow {
+  0%   { background-position: 0% center; }
+  100% { background-position: -200% center; }
+}
+
+.tide-crest {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  transform: translate(30%, -50%);
+  border-radius: 50%;
+  background: var(--pearl);
+  box-shadow: 0 0 14px 3px rgba(148, 233, 255, 0.85);
+}
+
+.tide-caption {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  font-weight: 500;
+  text-align: right;
+}
+
+/* ==================================================
+   LEYENDA
+   ================================================== */
+
+.legend-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 0.75rem;
 }
 
-.progress-header {
-  display: flex;
-  justify-content: space-between;
+.legend-chip {
+  display: inline-flex;
   align-items: center;
-}
-
-.progress-header h3 {
-  font-size: 1rem;
-  color: #0f172a;
-  font-weight: 600;
-}
-
-.progress-percentage {
+  gap: 0.55rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 50px;
+  background: rgba(8, 30, 54, 0.5);
+  border: 1px solid rgba(94, 234, 212, 0.12);
+  font-size: 0.83rem;
   font-weight: 700;
-  color: var(--primary-color);
-  background: rgba(37, 99, 235, 0.1);
-  padding: 0.2rem 0.75rem;
-  border-radius: 20px;
-  font-size: 0.85rem;
+  color: var(--ink-soft);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
-.progress-bar-container {
-  width: 100%;
-  height: 12px;
-  background-color: #e2e8f0;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+.dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
 }
 
-.progress-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--primary-color), #10b981);
-  border-radius: 10px;
-  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+.dot-available {
+  background: radial-gradient(circle at 32% 28%, rgba(94, 234, 212, 0.35), rgba(3, 15, 30, 0.9));
+  border: 1px solid rgba(94, 234, 212, 0.55);
 }
 
-.progress-text {
-  font-size: 0.85rem;
-  color: #64748b;
-  text-align: right;
-  font-weight: 500;
+.dot-reserved {
+  background: radial-gradient(circle at 32% 28%, #ffa286, var(--coral-deep));
+  box-shadow: 0 0 8px rgba(255, 122, 89, 0.6);
 }
 
-/* Status Bar & Legend */
-.status-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 0.5rem;
+.dot-paid {
+  background: radial-gradient(circle at 32% 28%, #fff3cf, var(--gold) 55%, #c8921f);
+  box-shadow: 0 0 8px rgba(246, 196, 83, 0.6);
 }
 
-.status-info {
-  font-size: 0.85rem;
-  color: #64748b;
-  font-weight: 500;
-  background: rgba(255,255,255,0.5);
-  padding: 0.5rem 1rem;
-  border-radius: 50px;
-}
+/* ==================================================
+   TABLERO DE FICHAS
+   ================================================== */
 
-.pulsing-text {
-  animation: pulse 1.5s infinite;
-  color: var(--primary-color);
-}
-
-@keyframes pulse {
-  0% { opacity: 1; }
-  50% { opacity: 0.5; }
-  100% { opacity: 1; }
-}
-
-.inline-legend {
-  display: flex;
-  gap: 1.5rem;
-  padding: 0.75rem 1.5rem;
-  border-radius: 50px;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.85rem;
-  color: #334155;
-  font-weight: 600;
-}
-
-.box {
-  width: 14px;
-  height: 14px;
-  border-radius: 3px;
-  border: 1px solid;
-}
-
-.box.available { background: var(--state-available-bg); border-color: var(--state-available-border); }
-.box.reserved { background: var(--state-reserved-bg); border-color: var(--state-reserved-border); }
-.box.paid { background: var(--state-paid-bg); border-color: var(--state-paid-border); }
-
-/* Grid Section */
 .grid-section {
-  padding: 2rem;
+  padding: clamp(1.25rem, 3vw, 2.25rem);
 }
 
-/* Agrupación Visual: Obligar a mostrar 10 por fila en desktop */
 .numbers-grid {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  gap: 12px;
+  gap: clamp(8px, 1.2vw, 14px);
 }
 
 .number-cell {
   aspect-ratio: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border-radius: 8px;
-  transition: all 0.2s;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: clamp(0.85rem, 2vw, 1.15rem);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
   user-select: none;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   position: relative;
-}
-
-/* READ ONLY: Elimina el pointer porque ya no se puede hacer click */
-.number-cell.read-only {
   cursor: default;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s, border-color 0.25s;
+  opacity: 0;
+  animation: cell-surface 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(0.9s + var(--i) * 9ms);
 }
 
+@keyframes cell-surface {
+  from { opacity: 0; transform: scale(0.6) translateY(8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Disponible: burbuja de vidrio con borde aqua tenue */
 .number-cell.available {
-  background-color: var(--state-available-bg);
-  color: var(--state-available-color);
-  border: 1px solid var(--state-available-border);
+  background: radial-gradient(circle at 32% 26%, rgba(94, 234, 212, 0.10), rgba(3, 15, 30, 0.75) 70%);
+  border: 1px solid rgba(94, 234, 212, 0.22);
+  color: #9fd4e8;
 }
 
-/* Ligeros hovers sólo para estética, sin insinuar acción */
 .number-cell.available:hover {
-  border-color: #94a3b8;
-  background-color: #f1f5f9;
+  transform: translateY(-3px) scale(1.06);
+  border-color: rgba(94, 234, 212, 0.65);
+  box-shadow: 0 0 20px -2px rgba(94, 234, 212, 0.4);
+  color: var(--pearl);
 }
 
+/* Reservada: coral encendido */
 .number-cell.reserved {
-  background-color: var(--state-reserved-bg);
-  color: var(--state-reserved-color);
-  border: 1px solid var(--state-reserved-border);
-  box-shadow: inset 0 -2px 0 rgba(0,0,0,0.15);
+  background: radial-gradient(circle at 32% 26%, #ffa286, var(--coral-deep) 75%);
+  border: 1px solid rgba(255, 162, 134, 0.7);
+  color: #fff1ec;
+  text-shadow: 0 1px 4px rgba(120, 30, 8, 0.55);
+  box-shadow: 0 0 16px -4px rgba(255, 122, 89, 0.55), inset 0 -3px 8px rgba(120, 30, 8, 0.35);
 }
 
+/* Pagada: perla dorada */
 .number-cell.paid {
-  background-color: var(--state-paid-bg);
-  color: var(--state-paid-color);
-  border: 1px solid var(--state-paid-border);
-  opacity: 0.95;
-  box-shadow: inset 0 -2px 0 rgba(0,0,0,0.15);
+  background: radial-gradient(circle at 32% 26%, #fff8e0, var(--gold) 52%, #c8921f 90%);
+  border: 1px solid rgba(255, 243, 207, 0.75);
+  color: #4a3200;
+  text-shadow: 0 1px 2px rgba(255, 250, 230, 0.5);
+  box-shadow: 0 0 16px -4px rgba(246, 196, 83, 0.6), inset 0 -3px 8px rgba(150, 100, 10, 0.35);
 }
 
-/* Footer */
-footer {
-  text-align: center;
-  padding: 2rem 0;
-  margin-top: auto;
-  color: #64748b;
-  font-size: 0.9rem;
+.number-cell.reserved:hover,
+.number-cell.paid:hover {
+  transform: translateY(-3px) scale(1.06);
+}
+
+/* Ganadora: perla radiante con halo */
+.number-cell.winner {
+  background: radial-gradient(circle at 35% 28%, var(--pearl) 8%, #b8f0e4 30%, var(--gold) 78%) !important;
+  border: 2px solid rgba(255, 243, 207, 0.95) !important;
+  color: #14532d !important;
+  font-weight: 800 !important;
+  animation: cell-surface 0.5s forwards, pearl-pulse 1.8s ease-in-out 0.5s infinite;
+  z-index: 1;
+}
+
+.number-cell.winner::after {
+  content: '✦';
+  position: absolute;
+  top: -6px;
+  right: -2px;
+  font-size: 0.85rem;
+  color: var(--gold);
+  text-shadow: 0 0 10px rgba(246, 196, 83, 0.9);
 }
 
 /* ==================================================
-   RESPONSIVE DESIGN (Tablets y Móviles)
+   FOOTER
    ================================================== */
 
-@media (max-width: 1024px) {
-  .numbers-grid {
-    grid-template-columns: repeat(10, 1fr);
-  }
+.site-footer {
+  text-align: center;
+  padding: 2.5rem 0 2rem;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
 }
+
+.footer-heart {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--ink-soft);
+}
+
+.footer-sync {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--ink-dim);
+  font-weight: 500;
+  min-height: 1.2em;
+}
+
+.sync-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--aqua);
+  box-shadow: 0 0 8px rgba(94, 234, 212, 0.7);
+}
+
+.sync-dot.syncing {
+  animation: badge-glow 1s ease-in-out infinite;
+}
+
+/* ==================================================
+   RESPONSIVE
+   ================================================== */
 
 @media (max-width: 768px) {
-  header {
-    padding: 2rem 0 1rem;
-  }
-  
-  .badge {
-    font-size: 0.75rem;
-    margin-bottom: 1rem;
+  .hero {
+    padding: 3rem 0 1.75rem;
   }
 
-  header h1 {
-    font-size: 2.25rem;
+  .hero-badge {
+    font-size: 0.68rem;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
   }
-  
-  .subtitle {
-    font-size: 1rem;
-    padding: 0 1rem;
+
+  .hero-kicker {
+    letter-spacing: 4px;
   }
-  
+
   .container {
-    padding: 0 15px;
+    padding: 0 14px;
   }
-  
+
+  main {
+    gap: 1.25rem;
+  }
+
   .info-section {
-    grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+    grid-template-columns: 1fr;
     gap: 1rem;
   }
-  
-  .status-bar {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  
-  .status-info {
-    text-align: center;
-  }
-  
-  .inline-legend {
-    justify-content: center;
-    border-radius: 12px;
+
+  .info-card {
+    padding: 1.4rem 1.25rem 1.2rem;
   }
 
-  .grid-section {
-    padding: 1.25rem;
-  }
-  
-  /* Ajuste de Agrupación en Móviles: 5 columnas */
   .numbers-grid {
     grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
-  }
-  
-  .number-cell {
-    font-size: 1rem;
-    border-radius: 6px;
-  }
-  
-  main {
-    padding-bottom: 2rem; 
-  }
-}
-
-@media (max-width: 480px) {
-  .numbers-grid {
-    gap: 6px;
   }
 
   .number-cell {
-    font-size: 0.9rem;
+    animation-delay: calc(0.9s + var(--i) * 5ms);
+  }
+
+  .tide-caption {
+    text-align: center;
   }
 }
 
-/* ================================================
-   NÚMERO GANADOR — CELDA EN GRILLA
-   ================================================ */
+@media (max-width: 400px) {
+  .count-sep {
+    display: none;
+  }
 
-.number-cell.winner {
-  background: linear-gradient(135deg, #f59e0b, #fbbf24) !important;
-  color: #ffffff !important;
-  border: 2px solid #d97706 !important;
-  font-weight: 800 !important;
-  animation: gold-pulse 1.5s ease-in-out infinite;
-  box-shadow: 0 0 18px rgba(245, 158, 11, 0.6) !important;
-  z-index: 1;
-  position: relative;
+  .legend-chip {
+    padding: 0.4rem 0.9rem;
+    font-size: 0.76rem;
+  }
 }
 
-/* ================================================
+/* ==================================================
    WINNER BANNER — OVERLAY
-   ================================================ */
+   ================================================== */
 
 .winner-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0);
+  background: rgba(2, 10, 20, 0);
   backdrop-filter: blur(0px);
   -webkit-backdrop-filter: blur(0px);
   z-index: 1000;
@@ -415,28 +667,24 @@ footer {
   animation: overlay-entrance 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-/* ================================================
-   WINNER BANNER — CARD
-   ================================================ */
-
 .winner-banner {
   position: relative;
   background: linear-gradient(
     165deg,
-    rgba(15, 23, 42, 0.94),
-    rgba(30, 41, 59, 0.90) 40%,
-    rgba(15, 23, 42, 0.96)
+    rgba(4, 18, 38, 0.96),
+    rgba(7, 32, 56, 0.92) 40%,
+    rgba(3, 14, 28, 0.97)
   );
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1.5px solid rgba(245, 158, 11, 0.45);
+  border: 1.5px solid rgba(94, 234, 212, 0.4);
   border-radius: 28px;
   padding: clamp(2rem, 5vw, 3.5rem) clamp(1.5rem, 6vw, 4.5rem);
   text-align: center;
   box-shadow:
-    0 0 60px rgba(245, 158, 11, 0.2),
-    0 0 120px rgba(245, 158, 11, 0.08),
-    0 25px 50px rgba(0, 0, 0, 0.5),
+    0 0 60px rgba(94, 234, 212, 0.18),
+    0 0 120px rgba(246, 196, 83, 0.1),
+    0 25px 50px rgba(0, 0, 0, 0.55),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
   overflow: hidden;
   max-width: 520px;
@@ -447,19 +695,15 @@ footer {
   animation: card-entrance 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) 0.35s forwards;
 }
 
-/* ================================================
-   SHIMMER SWEEP
-   ================================================ */
-
 .winner-shimmer {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     105deg,
     transparent 40%,
-    rgba(255, 255, 255, 0.04) 45%,
-    rgba(255, 255, 255, 0.08) 50%,
-    rgba(255, 255, 255, 0.04) 55%,
+    rgba(148, 233, 255, 0.04) 45%,
+    rgba(148, 233, 255, 0.09) 50%,
+    rgba(148, 233, 255, 0.04) 55%,
     transparent 60%
   );
   background-size: 200% 100%;
@@ -468,10 +712,6 @@ footer {
   border-radius: inherit;
   z-index: 0;
 }
-
-/* ================================================
-   CONFETTI
-   ================================================ */
 
 .winner-confetti-container {
   position: absolute;
@@ -511,10 +751,6 @@ footer {
   border-radius: 1px;
 }
 
-/* ================================================
-   CONTENT — STAGED REVEALS
-   ================================================ */
-
 .winner-content {
   position: relative;
   z-index: 1;
@@ -529,7 +765,7 @@ footer {
 
 .winner-star {
   font-size: 1.6rem;
-  color: #f59e0b;
+  color: var(--gold);
   opacity: 0;
   transform: scale(0) rotate(-90deg);
   display: inline-block;
@@ -544,7 +780,7 @@ footer {
   font-weight: 800;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: #f59e0b;
+  color: var(--aqua);
   margin-bottom: 1rem;
   opacity: 0;
   transform: translateY(8px);
@@ -559,21 +795,22 @@ footer {
 }
 
 .winner-number-text {
+  font-family: var(--font-display);
   font-size: clamp(5rem, 18vw, 10rem);
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1;
   display: inline-block;
-  background: linear-gradient(180deg, #ffffff 0%, #fef3c7 40%, #f59e0b 100%);
+  background: linear-gradient(180deg, var(--pearl) 0%, #b8f0e4 38%, var(--gold) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 0 30px rgba(245, 158, 11, 0.4));
+  filter: drop-shadow(0 0 30px rgba(94, 234, 212, 0.4));
   animation: number-shimmer 3s ease-in-out 1.8s infinite alternate;
 }
 
 .winner-subtitle {
   font-size: clamp(0.8rem, 1.8vw, 1rem);
-  color: #94a3b8;
+  color: var(--ink-soft);
   margin-top: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.5px;
@@ -584,7 +821,7 @@ footer {
 
 .winner-thanks {
   font-size: clamp(0.85rem, 1.8vw, 1.05rem);
-  color: #f59e0b;
+  color: var(--gold);
   margin-top: 0.35rem;
   font-weight: 600;
   letter-spacing: 0.5px;
@@ -593,27 +830,18 @@ footer {
   animation: content-reveal 0.45s ease-out 1.40s forwards;
 }
 
-/* Número ganador en la tarjeta de info */
-.winner-result-number {
-  background: linear-gradient(135deg, #f59e0b, #fbbf24);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-size: 2.5rem !important;
-}
-
 .winner-close-btn {
   margin-top: clamp(1.5rem, 3vw, 2.5rem);
   padding: 0.75rem 2.5rem;
   min-height: 48px;
   min-width: 120px;
-  background: rgba(255, 255, 255, 0.06);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(94, 234, 212, 0.08);
+  color: var(--pearl);
+  border: 1px solid rgba(94, 234, 212, 0.3);
   border-radius: 50px;
   font-size: clamp(0.85rem, 1.5vw, 1rem);
-  font-family: 'Roboto', sans-serif;
-  font-weight: 500;
+  font-family: var(--font-body);
+  font-weight: 600;
   cursor: pointer;
   transition: background 0.25s, border-color 0.25s, transform 0.15s, box-shadow 0.25s;
   opacity: 0;
@@ -622,9 +850,9 @@ footer {
 }
 
 .winner-close-btn:hover {
-  background: rgba(255, 255, 255, 0.14);
-  border-color: rgba(255, 255, 255, 0.35);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.06);
+  background: rgba(94, 234, 212, 0.18);
+  border-color: rgba(94, 234, 212, 0.6);
+  box-shadow: 0 0 20px rgba(94, 234, 212, 0.2);
 }
 
 .winner-close-btn:active {
@@ -632,13 +860,9 @@ footer {
 }
 
 .winner-close-btn:focus-visible {
-  outline: 2px solid #f59e0b;
+  outline: 2px solid var(--aqua);
   outline-offset: 3px;
 }
-
-/* ================================================
-   RESPONSIVE
-   ================================================ */
 
 @media (max-width: 479px) {
   .winner-banner {
@@ -678,16 +902,40 @@ footer {
   }
 }
 
-/* ================================================
-   REDUCED MOTION
-   ================================================ */
+/* ==================================================
+   MOVIMIENTO REDUCIDO
+   ================================================== */
 
 @media (prefers-reduced-motion: reduce) {
+  .number-cell {
+    animation: none;
+    opacity: 1;
+  }
+
+  .number-cell.winner {
+    animation: none;
+    opacity: 1;
+    box-shadow: 0 0 20px rgba(246, 196, 83, 0.6);
+  }
+
+  .hero-name,
+  .hero-spark,
+  .badge-dot,
+  .tide-fill,
+  .sync-dot.syncing {
+    animation: none;
+  }
+
+  .info-card,
+  .number-cell.available {
+    transition: none;
+  }
+
   .winner-overlay {
     animation: none;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(2, 10, 20, 0.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
   }
 
   .winner-banner {
@@ -709,13 +957,10 @@ footer {
 
   .winner-number-text {
     animation: none;
-    filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.4));
+    filter: drop-shadow(0 0 20px rgba(94, 234, 212, 0.4));
   }
 
-  .winner-shimmer {
-    display: none;
-  }
-
+  .winner-shimmer,
   .confetti-piece {
     display: none;
   }

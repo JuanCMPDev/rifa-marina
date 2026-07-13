@@ -1,30 +1,39 @@
-:root {
-  /* Light Theme Variables */
-  --bg-color: #f8fafc;
-  --text-color: #1e293b;
-  --glass-bg: rgba(255, 255, 255, 0.85);
-  --glass-border: rgba(255, 255, 255, 1);
-  --glass-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-  
-  --primary-color: #2563eb;
-  --accent-color: #dc2626;
-  
-  --state-available-bg: #ffffff;
-  --state-available-color: #334155;
-  --state-available-border: #cbd5e1;
-  
-  --state-reserved-bg: #f59e0b; /* Amber */
-  --state-reserved-color: #ffffff;
-  --state-reserved-border: #d97706;
-  
-  --state-paid-bg: #10b981; /* Emerald */
-  --state-paid-color: #ffffff;
-  --state-paid-border: #059669;
+/* ==================================================
+   RIFA MARINA — Océano Nocturno
+   Sistema de diseño base: paleta abisal + bioluminiscencia
+   ================================================== */
 
-  /* Softer Aurora for light mode (Corporate look) */
-  --aurora-1: #e0e7ff;
-  --aurora-2: #dbeafe;
-  --aurora-3: #ccfbf1;
+:root {
+  /* Profundidades */
+  --abyss-0: #020a14;
+  --abyss-1: #041226;
+  --abyss-2: #072038;
+  --abyss-3: #0a2c4a;
+
+  /* Tinta (texto) */
+  --ink: #eaf6ff;
+  --ink-soft: #a9c7dd;
+  --ink-dim: #6f93ad;
+
+  /* Bioluminiscencia */
+  --aqua: #5eead4;
+  --cyan: #38d3f5;
+  --coral: #ff7a59;
+  --coral-deep: #d94f2c;
+  --gold: #f6c453;
+  --gold-deep: #b8860b;
+  --pearl: #f4fbff;
+
+  /* Superficies de vidrio */
+  --glass-bg: rgba(8, 30, 54, 0.55);
+  --glass-border: rgba(94, 234, 212, 0.14);
+  --glass-shadow: 0 24px 60px -28px rgba(0, 0, 0, 0.65);
+
+  --radius-lg: 22px;
+  --radius-md: 16px;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Manrope', 'Segoe UI', sans-serif;
 }
 
 * {
@@ -33,76 +42,185 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family: 'Roboto', sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  font-family: var(--font-body);
+  background-color: var(--abyss-1);
+  color: var(--ink);
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Aurora Background Animation */
-.aurora-bg {
+::selection {
+  background: rgba(94, 234, 212, 0.35);
+  color: var(--pearl);
+}
+
+:focus-visible {
+  outline: 2px solid var(--aqua);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ==================================================
+   FONDO OCEÁNICO
+   Capas: gradiente abisal → rayos de luna → corrientes
+   bioluminiscentes → burbujas ascendentes
+   ================================================== */
+
+.ocean-bg {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  inset: 0;
   z-index: -1;
   overflow: hidden;
-  background-color: var(--bg-color);
+  background:
+    radial-gradient(120% 60% at 50% -10%, rgba(56, 211, 245, 0.10), transparent 60%),
+    linear-gradient(180deg, var(--abyss-2) 0%, var(--abyss-1) 45%, var(--abyss-0) 100%);
 }
 
-.aurora-blob {
+/* Rayos de luna filtrándose desde la superficie */
+.ocean-rays {
   position: absolute;
-  filter: blur(80px);
+  top: -25%;
+  left: 50%;
+  width: 160%;
+  height: 90%;
+  transform: translateX(-50%);
+  background: conic-gradient(
+    from 178deg at 50% 0%,
+    transparent 41%,
+    rgba(56, 211, 245, 0.055) 44.5%,
+    transparent 48%,
+    rgba(148, 233, 255, 0.045) 51%,
+    transparent 54%,
+    rgba(94, 234, 212, 0.06) 57.5%,
+    transparent 61%
+  );
+  filter: blur(26px);
+  animation: rays-sway 22s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes rays-sway {
+  0%   { transform: translateX(-53%) rotate(-1.5deg); opacity: 0.85; }
+  50%  { opacity: 1; }
+  100% { transform: translateX(-47%) rotate(1.5deg); opacity: 0.8; }
+}
+
+/* Corrientes bioluminiscentes (blobs de luz difusa) */
+.glow-blob {
+  position: absolute;
   border-radius: 50%;
-  animation: float 20s infinite ease-in-out alternate;
-  opacity: 0.7;
-  z-index: -1;
+  filter: blur(95px);
+  animation: current-drift 26s ease-in-out infinite alternate;
+  pointer-events: none;
 }
 
-.blob-1 {
-  top: -10%;
-  left: -10%;
-  width: 50vw;
-  height: 50vw;
-  background: var(--aurora-1);
-  animation-delay: 0s;
+.blob-a {
+  top: 4%;
+  left: -12%;
+  width: 46vw;
+  height: 46vw;
+  background: rgba(45, 155, 170, 0.16);
 }
 
-.blob-2 {
-  top: 40%;
-  right: -20%;
-  width: 60vw;
-  height: 60vw;
-  background: var(--aurora-2);
-  animation-delay: -5s;
-}
-
-.blob-3 {
-  bottom: -20%;
-  left: 20%;
+.blob-b {
+  top: 42%;
+  right: -18%;
   width: 55vw;
   height: 55vw;
-  background: var(--aurora-3);
-  animation-delay: -10s;
+  background: rgba(30, 90, 160, 0.20);
+  animation-delay: -9s;
 }
 
-@keyframes float {
-  0% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(30px, -50px) scale(1.1); }
-  66% { transform: translate(-20px, 20px) scale(0.9); }
-  100% { transform: translate(0, 0) scale(1); }
+.blob-c {
+  bottom: -22%;
+  left: 16%;
+  width: 50vw;
+  height: 50vw;
+  background: rgba(255, 122, 89, 0.07);
+  animation-delay: -17s;
 }
 
-/* Winner Animations */
+@keyframes current-drift {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(4vw, -3vh) scale(1.08); }
+  100% { transform: translate(-3vw, 3vh) scale(0.94); }
+}
+
+/* Burbujas ascendentes */
+.bubbles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.bubble {
+  position: absolute;
+  left: var(--x);
+  bottom: -40px;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 32% 30%,
+    rgba(255, 255, 255, 0.55),
+    rgba(94, 234, 212, 0.18) 55%,
+    transparent 75%
+  );
+  opacity: var(--o);
+  animation: bubble-rise var(--duration) linear var(--delay) infinite;
+  will-change: transform;
+}
+
+@keyframes bubble-rise {
+  0%   { transform: translate(0, 0); }
+  50%  { transform: translate(calc(var(--drift) * 0.6), -55vh); }
+  100% { transform: translate(var(--drift), -112vh); }
+}
+
+/* ==================================================
+   REVELADO ESCALONADO AL CARGAR
+   ================================================== */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: rise-up 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.r1  { animation-delay: 0.05s; }
+.r2  { animation-delay: 0.14s; }
+.r3  { animation-delay: 0.22s; }
+.r4  { animation-delay: 0.34s; }
+.r5  { animation-delay: 0.46s; }
+.r6  { animation-delay: 0.54s; }
+.r7  { animation-delay: 0.62s; }
+.r8  { animation-delay: 0.70s; }
+.r9  { animation-delay: 0.78s; }
+.r10 { animation-delay: 0.86s; }
+
+@keyframes rise-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==================================================
+   ANIMACIONES DEL BANNER DE GANADOR
+   ================================================== */
+
 @keyframes overlay-entrance {
   to {
-    background: rgba(0, 0, 0, 0.72);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(2, 10, 20, 0.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
   }
 }
 
@@ -135,9 +253,9 @@ body {
 }
 
 @keyframes number-shimmer {
-  0%   { filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.3)); }
-  50%  { filter: drop-shadow(0 0 50px rgba(245, 158, 11, 0.8)) drop-shadow(0 0 90px rgba(245, 158, 11, 0.25)); }
-  100% { filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.3)); }
+  0%   { filter: drop-shadow(0 0 20px rgba(94, 234, 212, 0.35)); }
+  50%  { filter: drop-shadow(0 0 50px rgba(246, 196, 83, 0.75)) drop-shadow(0 0 90px rgba(94, 234, 212, 0.25)); }
+  100% { filter: drop-shadow(0 0 20px rgba(94, 234, 212, 0.35)); }
 }
 
 @keyframes shimmer-sweep {
@@ -146,14 +264,45 @@ body {
 }
 
 @keyframes confetti-fall-improved {
-  0%   { transform: translateY(0)     translateX(0)                      rotate(0deg)   rotateX(0deg);   opacity: 1; }
+  0%   { transform: translateY(0)     translateX(0)                        rotate(0deg)   rotateX(0deg);   opacity: 1; }
   25%  { transform: translateY(130px) translateX(calc(var(--drift) * 0.5)) rotate(180deg) rotateX(90deg);  opacity: 1; }
   50%  { transform: translateY(280px) translateX(var(--drift))             rotate(360deg) rotateX(180deg); opacity: 0.8; }
   75%  { transform: translateY(420px) translateX(calc(var(--drift) * 0.7)) rotate(540deg) rotateX(270deg); opacity: 0.4; }
   100% { transform: translateY(560px) translateX(calc(var(--drift) * 0.3)) rotate(720deg) rotateX(360deg); opacity: 0; }
 }
 
-@keyframes gold-pulse {
-  0%, 100% { box-shadow: 0 0 8px  rgba(245, 158, 11, 0.4); transform: scale(1); }
-  50%       { box-shadow: 0 0 28px rgba(245, 158, 11, 0.9); transform: scale(1.1); }
+@keyframes pearl-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 14px rgba(246, 196, 83, 0.45),
+      0 0 34px rgba(94, 234, 212, 0.25);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow:
+      0 0 30px rgba(246, 196, 83, 0.85),
+      0 0 60px rgba(94, 234, 212, 0.45);
+    transform: scale(1.09);
+  }
+}
+
+/* ==================================================
+   MOVIMIENTO REDUCIDO
+   ================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .ocean-rays,
+  .glow-blob {
+    animation: none;
+  }
+
+  .bubble {
+    display: none;
+  }
+
+  .reveal {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
