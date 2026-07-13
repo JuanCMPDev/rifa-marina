@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
 
 const CONFETTI_COLORS = [
-  '#5eead4', '#38d3f5', '#f6c453',
-  '#ff7a59', '#94e9ff', '#fff3cf',
-  '#60a5fa', '#f4fbff',
+  '#eab308', '#d97706', '#2f9e6e',
+  '#e8795a', '#f5b944', '#7fd6a8',
+  '#ffd98a', '#b45309',
 ];
 
 function generateConfetti(count) {

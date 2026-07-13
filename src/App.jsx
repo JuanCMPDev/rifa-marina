@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import OceanBackground from './components/OceanBackground';
+import AmbientBackground from './components/AmbientBackground';
 import Header from './components/Header';
 import Countdown from './components/Countdown';
 import InfoSection from './components/InfoSection';
@@ -130,7 +130,7 @@ function App() {
 
   return (
     <>
-      <OceanBackground />
+      <AmbientBackground />
 
       {bannerVisible && winnerNumber !== null && (
         <WinnerBanner

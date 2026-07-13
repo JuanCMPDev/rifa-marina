@@ -1,7 +1,7 @@
-# 🌊 Rifa en apoyo a Marina
+# 🎟️ Rifa en apoyo a Marina
 
 Página pública del Gran Sorteo Solidario en apoyo a Marina. Muestra el tablero
-de 100 fichas (00–99), el estado de cada una en tiempo casi real, una cuenta
+de 100 números (00–99), el estado de cada uno en tiempo casi real, una cuenta
 regresiva al sorteo y el número ganador cuando se realiza el sorteo.
 
 - **Premio mayor:** $500.000

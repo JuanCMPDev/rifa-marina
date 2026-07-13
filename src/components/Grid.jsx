@@ -1,7 +1,7 @@
 const STATE_LABELS = {
   available: 'disponible',
-  reserved: 'reservada',
-  paid: 'pagada',
+  reserved: 'reservado',
+  paid: 'pagado',
 };
 
 export default function Grid({ numbersState, winnerNumber }) {
@@ -12,7 +12,7 @@ export default function Grid({ numbersState, winnerNumber }) {
   });
 
   return (
-    <section className="grid-section glass-panel reveal r10" aria-label="Tablero de números de la rifa">
+    <section className="grid-section panel reveal r10" aria-label="Tablero de números de la rifa">
       <div className="numbers-grid">
         {numbers.map(([number, state], i) => {
           const isWinner = winnerNumber !== null && number === winnerNumber;
@@ -22,8 +22,8 @@ export default function Grid({ numbersState, winnerNumber }) {
               key={number}
               className={`number-cell ${state}${isWinner ? ' winner' : ''}`}
               style={{ '--i': i }}
-              title={`Ficha ${number} · ${label}`}
-              aria-label={`Ficha ${number}: ${label}`}
+              title={`Número ${number} · ${label}`}
+              aria-label={`Número ${number}: ${label}`}
             >
               {number}
             </div>

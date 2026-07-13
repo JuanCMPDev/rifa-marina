@@ -5,17 +5,12 @@ export default function Header() {
         <span className="badge-dot" aria-hidden="true" />
         Gran Sorteo Solidario
       </div>
-      <h1 className="hero-title">
-        <span className="hero-kicker reveal r2">Rifa en apoyo a</span>
-        <span className="hero-name reveal r3">
-          Marina
-          <span className="hero-spark spark-1" aria-hidden="true">✦</span>
-          <span className="hero-spark spark-2" aria-hidden="true">✦</span>
-        </span>
+      <h1 className="reveal r2">
+        Rifa en apoyo a <em>Marina</em>
       </h1>
-      <p className="hero-subtitle reveal r4">
-        Cien fichas, un premio y una noble causa.
-        Sumérgete y encuentra tu número de la suerte.
+      <p className="hero-subtitle reveal r3">
+        Cien números, un gran premio y una causa que vale la pena.
+        Elige tu número de la suerte y acompáñanos.
       </p>
     </header>
   );

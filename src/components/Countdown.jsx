@@ -30,7 +30,7 @@ export default function Countdown() {
   }, []);
 
   return (
-    <section className="countdown glass-panel reveal r5" aria-label="Cuenta regresiva para el sorteo">
+    <section className="countdown panel reveal r4" aria-label="Cuenta regresiva para el sorteo">
       <span className="countdown-label">El sorteo se acerca</span>
 
       {timeLeft ? (
@@ -49,7 +49,7 @@ export default function Countdown() {
         </div>
       ) : (
         <p className="countdown-today">
-          ¡Llegó la noche del sorteo! Pronto anunciaremos el número ganador.
+          ¡Hoy es el sorteo! Muy pronto anunciaremos el número ganador.
         </p>
       )}
 
